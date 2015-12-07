@@ -301,7 +301,7 @@
 
 - (UIColor *)colorForTitleLabel
 {
-    if (self.dateIsSelected || self.isSelected) {
+    if (self.dateIsSelected || self.isSelected || self.weekend) {
         return self.preferedTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
     }
     return self.preferedTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
