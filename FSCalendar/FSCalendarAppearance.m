@@ -90,6 +90,7 @@
         _backgroundColors[@(FSCalendarCellStateDisabled)]    = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStatePlaceholder)] = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStateToday)]       = FSCalendarStandardTodayColor;
+        _backgroundColors[@(FSCalendarCellStateMarked)]      = [UIColor greenColor];
         
         _titleColors = [NSMutableDictionary dictionaryWithCapacity:5];
         _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor darkTextColor];
@@ -97,6 +98,7 @@
         _titleColors[@(FSCalendarCellStateDisabled)]    = [UIColor grayColor];
         _titleColors[@(FSCalendarCellStatePlaceholder)] = [UIColor lightGrayColor];
         _titleColors[@(FSCalendarCellStateToday)]       = [UIColor whiteColor];
+        _titleColors[@(FSCalendarCellStateMarked)]       = [UIColor darkTextColor];
         
         _subtitleColors = [NSMutableDictionary dictionaryWithCapacity:5];
         _subtitleColors[@(FSCalendarCellStateNormal)]      = [UIColor darkGrayColor];
@@ -104,9 +106,11 @@
         _subtitleColors[@(FSCalendarCellStateDisabled)]    = [UIColor lightGrayColor];
         _subtitleColors[@(FSCalendarCellStatePlaceholder)] = [UIColor lightGrayColor];
         _subtitleColors[@(FSCalendarCellStateToday)]       = [UIColor whiteColor];
+        _subtitleColors[@(FSCalendarCellStateMarked)]      = [UIColor darkGrayColor];
         
         _borderColors[@(FSCalendarCellStateSelected)] = [UIColor clearColor];
         _borderColors[@(FSCalendarCellStateNormal)] = [UIColor clearColor];
+        _borderColors[@(FSCalendarCellStateMarked)] = [UIColor clearColor];
         
         _cellShape = FSCalendarCellShapeCircle;
         _eventColor = FSCalendarStandardEventDotColor;
@@ -290,6 +294,21 @@
 - (UIColor *)titleWeekendColor
 {
     return _titleColors[@(FSCalendarCellStateWeekend)];
+}
+
+- (void)setTitleMarkedColor:(UIColor *)color
+{
+    if (color) {
+        _titleColors[@(FSCalendarCellStateMarked)] = color;
+    } else {
+        [_titleColors removeObjectForKey:@(FSCalendarCellStateMarked)];
+    }
+    [self invalidateTitleTextColor];
+}
+
+- (UIColor *)titleMarkedColor
+{
+    return _titleColors[@(FSCalendarCellStateMarked)];
 }
 
 - (void)setSubtitleDefaultColor:(UIColor *)color

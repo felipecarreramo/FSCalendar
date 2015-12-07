@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarScrollDirection) {
 - (BOOL)calendar:(FSCalendar *)calendar hasEventForDate:(NSDate *)date;
 - (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar;
 - (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar;
+- (Boolean) calendar:(FSCalendar *)calendar shouldChangeBackgroundForDate:(NSDate *)date;
 
 @end
 

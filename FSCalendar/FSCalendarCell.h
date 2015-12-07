@@ -44,6 +44,10 @@
 @property (strong, nonatomic) UIColor *preferedBorderSelectionColor;
 @property (assign, nonatomic) FSCalendarCellShape preferedCellShape;
 
+@property (assign, nonatomic) Boolean shouldHiddenBackgroundLayer;
+@property (assign, nonatomic) UIColor *colorForBackgroundLayer;
+@property (assign, nonatomic) UIColor *colorForTitleLabel;
+
 - (void)invalidateTitleFont;
 - (void)invalidateSubtitleFont;
 - (void)invalidateTitleTextColor;

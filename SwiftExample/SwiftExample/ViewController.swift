@@ -19,7 +19,8 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
         super.viewDidLoad()
         calendar.scrollDirection = .Vertical
         calendar.appearance.caseOptions = [.HeaderUsesUpperCase,.WeekdayUsesUpperCase]
-        calendar.selectDate(calendar.dateWithYear(2015, month: 10, day: 10))
+        calendar.selectDate(calendar.dateWithYear(2015, month: 12 , day: 10))
+        calendar.appearance
 //        calendar.allowsMultipleSelection = true
         
         // Uncomment this to test month->week and week->month transition
@@ -36,16 +37,11 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
     
 
     func minimumDateForCalendar(calendar: FSCalendar!) -> NSDate! {
-        return calendar.dateWithYear(2015, month: 1, day: 1)
+        return calendar.dateWithYear(2015, month: 12, day: 6)
     }
     
     func maximumDateForCalendar(calendar: FSCalendar!) -> NSDate! {
-        return calendar.dateWithYear(2016, month: 10, day: 31)
-    }
-    
-
-    func calendar(calendar: FSCalendar!, hasEventForDate date: NSDate!) -> Bool {
-        return calendar.dayOfDate(date) == 5
+        return calendar.dateWithYear(2016, month: 12, day: 31)
     }
 
     func calendarCurrentPageDidChange(calendar: FSCalendar!) {
@@ -63,6 +59,17 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
     
     func calendar(calendar: FSCalendar!, imageForDate date: NSDate!) -> UIImage! {
         return [13,24].containsObject(calendar.dayOfDate(date)) ? UIImage(named: "icon_cat") : nil
+    }
+    
+    func calendar(calendar: FSCalendar!, shouldChangeBackgroundForDate date: NSDate!) -> Bool {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Month, NSCalendarUnit.Year], fromDate: date)
+        let day = components.day
+        if day % 2 == 0 {
+            return true
+        }else {
+            return false
+        }
     }
     
 }

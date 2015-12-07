@@ -17,7 +17,8 @@ typedef NS_ENUM(NSInteger, FSCalendarCellState) {
     FSCalendarCellStateDisabled    = 1 << 2,
     FSCalendarCellStateToday       = 1 << 3,
     FSCalendarCellStateWeekend     = 1 << 4,
-    FSCalendarCellStateTodaySelected = FSCalendarCellStateToday|FSCalendarCellStateSelected
+    FSCalendarCellStateTodaySelected = FSCalendarCellStateToday|FSCalendarCellStateSelected,
+    FSCalendarCellStateMarked      = 1 << 6
 };
 
 typedef NS_ENUM(NSUInteger, FSCalendarCellShape) {
@@ -56,6 +57,7 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
 @property (strong, nonatomic) UIColor  *titleTodayColor;
 @property (strong, nonatomic) UIColor  *titlePlaceholderColor;
 @property (strong, nonatomic) UIColor  *titleWeekendColor;
+@property (strong, nonatomic) UIColor  *titleMarkedColor;
 
 @property (strong, nonatomic) UIColor  *subtitleDefaultColor;
 @property (strong, nonatomic) UIColor  *subtitleSelectionColor;

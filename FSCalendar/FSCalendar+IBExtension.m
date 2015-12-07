@@ -142,6 +142,18 @@
     return self.appearance.titleWeekendColor;
 }
 
+#pragma mark - titleWeekendColor
+
+- (void)setTitleMarkedColor:(UIColor *)titleMarkedColor
+{
+    self.appearance.titleMarkedColor = titleMarkedColor;
+}
+
+- (UIColor *)titleMarkedColor
+{
+    return self.appearance.titleMarkedColor;
+}
+
 #pragma mark - subtitleDefaultColor
 
 - (void)setSubtitleDefaultColor:(UIColor *)subtitleDefaultColor

@@ -1640,6 +1640,7 @@
     cell.subtitle  = [self subtitleForDate:cell.date];
     cell.dateIsSelected = [_selectedDates containsObject:cell.date];
     cell.dateIsToday = [self date:cell.date sharesSameDayWithDate:_today];
+    cell.shouldHiddenBackgroundLayer = ![self shouldChangebackgroundColorForDate:cell.date];
     switch (_scope) {
         case FSCalendarScopeMonth: {
             NSDate *firstPage = [self beginingOfMonthOfDate:_minimumDate];
@@ -1883,6 +1884,13 @@
     return _ibEditing && _appearance.fakeSubtitles ? @"test" : nil;
 }
 
+- (Boolean) shouldChangebackgroundColorForDate:(NSDate *)date
+{
+    if (_dataSource && [_dataSource respondsToSelector:@selector(calendar:shouldChangeBackgroundForDate:)]) {
+        return [_dataSource calendar:self shouldChangeBackgroundForDate:date];
+    }
+    return false;
+}
 - (UIImage *)imageForDate:(NSDate *)date
 {
     if (_dataSource && [_dataSource respondsToSelector:@selector(calendar:imageForDate:)]) {

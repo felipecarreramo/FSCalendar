@@ -14,8 +14,6 @@
 
 @interface FSCalendarCell ()
 
-@property (readonly, nonatomic) UIColor *colorForBackgroundLayer;
-@property (readonly, nonatomic) UIColor *colorForTitleLabel;
 @property (readonly, nonatomic) UIColor *colorForSubtitleLabel;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
 @property (readonly, nonatomic) FSCalendarCellShape cellShape;
@@ -32,6 +30,7 @@
     if (self) {
         
         _needsAdjustingViewFrame = YES;
+        _shouldHiddenBackgroundLayer = YES;
         
         UILabel *label;
         CAShapeLayer *shapeLayer;
@@ -173,13 +172,16 @@
         }
     }
     
-    UIColor *borderColor = self.colorForCellBorder;
-    BOOL shouldHiddenBackgroundLayer = !self.selected && !self.dateIsToday && !self.dateIsSelected && !borderColor;
     
-    if (_backgroundLayer.hidden != shouldHiddenBackgroundLayer) {
-        _backgroundLayer.hidden = shouldHiddenBackgroundLayer;
+    if (_backgroundLayer.hidden != _shouldHiddenBackgroundLayer) {
+        _backgroundLayer.hidden = _shouldHiddenBackgroundLayer;
     }
-    if (!shouldHiddenBackgroundLayer) {
+    
+    if (self.dateIsToday) {
+        _backgroundLayer.hidden = NO;
+    }
+    
+    if (!_shouldHiddenBackgroundLayer || self.dateIsToday  ) {
         
         CGPathRef path = self.cellShape == FSCalendarCellShapeCircle ?
         [UIBezierPath bezierPathWithOvalInRect:_backgroundLayer.bounds].CGPath :
@@ -222,12 +224,6 @@
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
 {
-    if (self.isSelected || self.dateIsSelected) {
-        if (self.dateIsToday) {
-            return dictionary[@(FSCalendarCellStateSelected|FSCalendarCellStateToday)] ?: dictionary[@(FSCalendarCellStateSelected)];
-        }
-        return dictionary[@(FSCalendarCellStateSelected)];
-    }
     if (self.dateIsToday && [[dictionary allKeys] containsObject:@(FSCalendarCellStateToday)]) {
         return dictionary[@(FSCalendarCellStateToday)];
     }
@@ -236,6 +232,10 @@
     }
     if (self.isWeekend && [[dictionary allKeys] containsObject:@(FSCalendarCellStateWeekend)]) {
         return dictionary[@(FSCalendarCellStateWeekend)];
+    }
+    
+    if (!_shouldHiddenBackgroundLayer) {
+        return dictionary[@(FSCalendarCellStateMarked)];
     }
     return dictionary[@(FSCalendarCellStateNormal)];
 }
