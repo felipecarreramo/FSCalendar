@@ -274,6 +274,18 @@
     return self.appearance.borderSelectionColor;
 }
 
+#pragma mark - markedBackgroundColor
+
+- (void)setBackgroundMarkedColor:(UIColor *)backgroundMarkedColor
+{
+    self.appearance.backgroundMarkedColor = backgroundMarkedColor;
+}
+
+- (UIColor *)backgroundMarkedColor
+{
+    return self.appearance.borderSelectionColor;
+}
+
 #pragma mark - cellStyle
 
 - (void)setCellShape:(FSCalendarCellShape)cellShape

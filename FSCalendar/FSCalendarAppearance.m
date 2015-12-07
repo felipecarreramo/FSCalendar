@@ -90,7 +90,7 @@
         _backgroundColors[@(FSCalendarCellStateDisabled)]    = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStatePlaceholder)] = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStateToday)]       = FSCalendarStandardTodayColor;
-        _backgroundColors[@(FSCalendarCellStateMarked)]      = [UIColor greenColor];
+        _backgroundColors[@(FSCalendarCellStateMarked)]      = [UIColor clearColor];
         
         _titleColors = [NSMutableDictionary dictionaryWithCapacity:5];
         _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor darkTextColor];
@@ -400,6 +400,23 @@
 {
     return _backgroundColors[@(FSCalendarCellStateSelected)];
 }
+
+- (void)setBackgroundMarkedColor:(UIColor *)color
+{
+    if (color) {
+        _backgroundColors[@(FSCalendarCellStateMarked)] = color;
+    } else {
+        [_backgroundColors removeObjectForKey:@(FSCalendarCellStateMarked)];
+    }
+    [self invalidateBackgroundColors];
+}
+
+- (UIColor *)backgroundMarkedColor
+{
+    return _backgroundColors[@(FSCalendarCellStateMarked)];
+}
+
+
 
 - (void)setTodayColor:(UIColor *)todayColor
 {
